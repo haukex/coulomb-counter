@@ -19,11 +19,6 @@ void setup() {
   Serial.begin(115200);
 
   lcd.init();
-  lcd.setBacklight(true);
-  lcd.setCursor(0, 0);
-  lcd.print(F("+0 -0"));
-  lcd.setCursor(0, 1);
-  lcd.print(F("0 mAh"));
 
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LOW);
@@ -39,6 +34,13 @@ void setup() {
   pinMode(PIN_POL, INPUT_PULLUP);
   pinMode(PIN_CLR, INPUT);  // tied to INT on breakout board via SJ1 by default
   pinMode(PIN_SDN, INPUT);  // pulled up to VIO on breakout board
+  delay(1000);  // give the IC a little more time to initialize
+
+  lcd.setBacklight(true);
+  lcd.setCursor(0, 0);
+  lcd.print(F("+0 -0"));
+  lcd.setCursor(0, 1);
+  lcd.print(F("0 mAh"));
 
   // First clear all interrupt flags to prevent phantom interrupts (write 1 to clear)
   EIFR  = _BV(INTF0) | _BV(INTF1);
